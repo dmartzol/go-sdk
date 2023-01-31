@@ -12,10 +12,8 @@ type Options struct {
 	samplingConfig *zap.SamplingConfig
 }
 
-// Option represents a function that sets the options based on implementation.
 type Option func(o *Options)
 
-// WithFormat sets the specified format on the logger. Accepted values are "json" and "console".
 func WithEncoding(encoding string) Option {
 	if encoding != "console" && encoding != "json" {
 		global.Fatalf("invalid log format '%s': must be text or json", encoding)
