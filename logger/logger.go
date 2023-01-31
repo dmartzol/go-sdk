@@ -46,14 +46,14 @@ type Logger interface {
 }
 
 func NewWithOptions(opts ...Option) *zap.SugaredLogger {
-	options := Options{
+	options := &Options{
 		encoding:       "json",
 		levelEncoder:   zapcore.LowercaseLevelEncoder,
 		samplingConfig: nil,
 	}
 
 	for _, o := range opts {
-		o(&options)
+		o(options)
 	}
 
 	cfg := zap.Config{
