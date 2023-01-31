@@ -1,6 +1,11 @@
 package logger
 
-import "fmt"
+import (
+	"fmt"
+
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
+)
 
 type Logger interface {
 	Info(args ...interface{})
