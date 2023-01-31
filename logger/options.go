@@ -16,7 +16,7 @@ type Option func(o *Options)
 
 func WithEncoding(encoding string) Option {
 	if encoding != "console" && encoding != "json" {
-		global.Fatalf("invalid log format '%s': must be text or json", encoding)
+		global.Fatalf("invalid log format '%s': must be 'console' or 'json'", encoding)
 	}
 
 	return func(o *Options) {
