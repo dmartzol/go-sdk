@@ -5,7 +5,6 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-// Options represents logger options.
 type Options struct {
 	encoding       string
 	levelEncoder   zapcore.LevelEncoder
