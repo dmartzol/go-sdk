@@ -2,7 +2,10 @@ module github.com/dmartzol/go-sdk
 
 go 1.19
 
-require go.uber.org/zap v1.24.0
+require (
+	github.com/jmoiron/sqlx v1.3.5
+	go.uber.org/zap v1.24.0
+)
 
 require (
 	go.uber.org/atomic v1.7.0 // indirect
