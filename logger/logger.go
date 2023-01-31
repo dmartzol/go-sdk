@@ -47,8 +47,9 @@ type Logger interface {
 
 func NewWithOptions(opts ...Option) *zap.SugaredLogger {
 	options := Options{
-		encoding:     "json",
-		levelEncoder: zapcore.LowercaseLevelEncoder,
+		encoding:       "json",
+		levelEncoder:   zapcore.LowercaseLevelEncoder,
+		samplingConfig: nil,
 	}
 
 	for _, o := range opts {
@@ -58,11 +59,8 @@ func NewWithOptions(opts ...Option) *zap.SugaredLogger {
 	cfg := zap.Config{
 		Level:       zap.NewAtomicLevelAt(zap.InfoLevel),
 		Development: false,
-		Sampling: &zap.SamplingConfig{
-			Initial:    100,
-			Thereafter: 100,
-		},
-		Encoding: options.encoding,
+		Sampling:    options.samplingConfig,
+		Encoding:    options.encoding,
 		EncoderConfig: zapcore.EncoderConfig{
 			TimeKey:        "ts",
 			LevelKey:       "level",

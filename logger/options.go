@@ -1,13 +1,15 @@
 package logger
 
 import (
+	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
 
 // Options represents logger options.
 type Options struct {
-	encoding     string
-	levelEncoder zapcore.LevelEncoder
+	encoding       string
+	levelEncoder   zapcore.LevelEncoder
+	samplingConfig *zap.SamplingConfig
 }
 
 // Option represents a function that sets the options based on implementation.
@@ -27,5 +29,14 @@ func WithEncoding(encoding string) Option {
 func WithColor() Option {
 	return func(o *Options) {
 		o.levelEncoder = zapcore.LowercaseColorLevelEncoder
+	}
+}
+
+func WithSampling(initial, thereafter int) Option {
+	return func(o *Options) {
+		o.samplingConfig = &zap.SamplingConfig{
+			Initial:    initial,
+			Thereafter: thereafter,
+		}
 	}
 }
