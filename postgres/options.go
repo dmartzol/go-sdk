@@ -26,3 +26,9 @@ func WithDatabaseName(database string) Option {
 		c.databaseName = database
 	}
 }
+
+func WithSSLMode(enable bool) Option {
+	return func(c *config) {
+		c.sslMode = enable
+	}
+}

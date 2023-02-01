@@ -17,12 +17,19 @@ type config struct {
 	password     string
 	databaseName string
 	serviceName  string
+	sslMode      bool
 }
 
 func (c *config) url() string {
 	query := url.Values{}
 
 	query.Set("client_encoding", "UTF8")
+
+	if c.sslMode {
+		query.Set("sslmode", "verify-full")
+	} else {
+		query.Set("sslmode", "disable")
+	}
 
 	if c.serviceName != "" {
 		query.Set("application_name", c.serviceName)
