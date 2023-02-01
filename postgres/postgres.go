@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/jmoiron/sqlx"
+	_ "github.com/lib/pq"
 )
 
 type config struct {
