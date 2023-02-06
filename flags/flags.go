@@ -18,6 +18,9 @@ var (
 	DatabaseUserFlag     = "databaseUser"
 	DatabasePasswordFlag = "databasePassword"
 
+	// scraper flags
+	LocalScrapeFlag = "localScrape"
+
 	ServerFlags = []cli.Flag{
 		&cli.StringFlag{
 			Name:   HostnameFlagName,
@@ -69,6 +72,13 @@ var (
 			Name:   DatabasePasswordFlag,
 			EnvVar: "PGPASSWORD",
 			Value:  "password",
+		},
+	}
+
+	ScraperFlags = []cli.Flag{
+		&cli.BoolTFlag{
+			Name:   LocalScrapeFlag,
+			EnvVar: "LOCAL_SCRAPE",
 		},
 	}
 )
