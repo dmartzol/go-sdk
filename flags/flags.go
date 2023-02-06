@@ -3,44 +3,70 @@ package flags
 import "github.com/urfave/cli"
 
 var (
-	HostnameFlagName           = "host"
-	PortFlagName               = "port"
+	// Server flags
+	HostnameFlagName = "host"
+	PortFlagName     = "port"
+
+	// Logger flags
 	LogsFormatFlagName         = "logsFormat"
 	RawRequestsLoggingFlagName = "logRawRequests"
-	DatabaseHostnameFlagName   = "databaseHostname"
-	DatabasePortFlagName       = "databasePort"
-	DatabaseUserFlagName       = "databaseUser"
-	DatabaseNameFlagName       = "databaseName"
-	DatabasePasswordFlagName   = "databasePassword"
 
-	CommonFlags = []cli.Flag{
+	// Database flags
+	DatabaseHostnameFlag = "databaseHostname"
+	DatabasePortFlag     = "databasePort"
+	DatabaseNameFlag     = "databaseName"
+	DatabaseUserFlag     = "databaseUser"
+	DatabasePasswordFlag = "databasePassword"
+
+	ServerFlags = []cli.Flag{
+		&cli.StringFlag{
+			Name:   HostnameFlagName,
+			EnvVar: "HOSTNAME",
+			Value:  "localhost",
+		},
+		&cli.IntFlag{
+			Name:   PortFlagName,
+			EnvVar: "PORT",
+			Value:  8080,
+		},
+	}
+
+	LoggerFlags = []cli.Flag{
+		&cli.BoolTFlag{
+			Name:   RawRequestsLoggingFlagName,
+			Usage:  "Log incoming raw http requests",
+			EnvVar: "LOG_RAW_REQUESTS",
+		},
 		&cli.StringFlag{
 			Name:   LogsFormatFlagName,
 			EnvVar: "LOGS_FORMAT",
 			Value:  "console",
 		},
+	}
+
+	DatabaseFlags = []cli.Flag{
 		&cli.StringFlag{
-			Name:   DatabaseHostnameFlagName,
+			Name:   DatabaseHostnameFlag,
 			EnvVar: "PGHOST",
 			Value:  "localhost",
 		},
 		&cli.StringFlag{
-			Name:   DatabasePortFlagName,
+			Name:   DatabasePortFlag,
 			EnvVar: "PGPORT",
 			Value:  "5432",
 		},
 		&cli.StringFlag{
-			Name:   DatabaseUserFlagName,
-			EnvVar: "PGUSER",
-			Value:  "",
-		},
-		&cli.StringFlag{
-			Name:   DatabaseNameFlagName,
+			Name:   DatabaseNameFlag,
 			EnvVar: "PGNAME",
 			Value:  "",
 		},
 		&cli.StringFlag{
-			Name:   DatabasePasswordFlagName,
+			Name:   DatabaseUserFlag,
+			EnvVar: "PGUSER",
+			Value:  "",
+		},
+		&cli.StringFlag{
+			Name:   DatabasePasswordFlag,
 			EnvVar: "PGPASSWORD",
 			Value:  "password",
 		},
