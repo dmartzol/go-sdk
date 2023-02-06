@@ -83,5 +83,5 @@ func NewWithOptions(opts ...Option) *zap.SugaredLogger {
 }
 
 func New() *zap.SugaredLogger {
-	return NewWithOptions(nil)
+	return NewWithOptions()
 }
