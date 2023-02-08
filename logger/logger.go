@@ -71,7 +71,7 @@ func NewWithOptions(opts ...Option) *zap.SugaredLogger {
 			StacktraceKey:  "stacktrace",
 			LineEnding:     zapcore.DefaultLineEnding,
 			EncodeLevel:    options.levelEncoder,
-			EncodeTime:     zapcore.EpochTimeEncoder,
+			EncodeTime:     zapcore.ISO8601TimeEncoder,
 			EncodeDuration: zapcore.SecondsDurationEncoder,
 			EncodeCaller:   zapcore.ShortCallerEncoder,
 		},
