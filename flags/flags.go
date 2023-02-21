@@ -20,8 +20,8 @@ var (
 
 	// scraper flags
 	LocalScrapeFlag = "localScrape"
-	seleniumHubPort = "seleniumHubPort"
-	seleniumHubHost = "seleniumHubHost"
+	SeleniumHubPort = "seleniumHubPort"
+	SeleniumHubHost = "seleniumHubHost"
 
 	ServerFlags = []cli.Flag{
 		&cli.StringFlag{
@@ -83,12 +83,12 @@ var (
 			EnvVar: "LOCAL_SCRAPE",
 		},
 		&cli.IntFlag{
-			Name:   seleniumHubPort,
+			Name:   SeleniumHubPort,
 			EnvVar: "SELENIUM_HUB_PORT",
 			Value:  4444,
 		},
 		&cli.StringFlag{
-			Name:   seleniumHubHost,
+			Name:   SeleniumHubHost,
 			EnvVar: "SELENIUM_HUB_HOST",
 			Value:  "selenium-hub",
 		},
