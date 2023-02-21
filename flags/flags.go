@@ -8,8 +8,8 @@ var (
 	PortFlagName     = "port"
 
 	// Logger flags
-	LogsFormatFlagName         = "logsFormat"
-	RawRequestsLoggingFlagName = "logRawRequests"
+	LogsFormatFlag         = "logsFormat"
+	RawRequestsLoggingFlag = "logRawRequests"
 
 	// Database flags
 	DatabaseHostnameFlag = "databaseHostname"
@@ -19,9 +19,9 @@ var (
 	DatabasePasswordFlag = "databasePassword"
 
 	// scraper flags
-	LocalScrapeFlag = "localScrape"
-	SeleniumHubPort = "seleniumHubPort"
-	SeleniumHubHost = "seleniumHubHost"
+	LocalScrapeFlag     = "localScrape"
+	SeleniumHubPortFlag = "seleniumHubPort"
+	SeleniumHubHostFlag = "seleniumHubHost"
 
 	ServerFlags = []cli.Flag{
 		&cli.StringFlag{
@@ -38,12 +38,12 @@ var (
 
 	LoggerFlags = []cli.Flag{
 		&cli.BoolTFlag{
-			Name:   RawRequestsLoggingFlagName,
+			Name:   RawRequestsLoggingFlag,
 			Usage:  "Log incoming raw http requests",
 			EnvVar: "LOG_RAW_REQUESTS",
 		},
 		&cli.StringFlag{
-			Name:   LogsFormatFlagName,
+			Name:   LogsFormatFlag,
 			EnvVar: "LOGS_FORMAT",
 			Value:  "console",
 		},
@@ -83,12 +83,12 @@ var (
 			EnvVar: "LOCAL_SCRAPE",
 		},
 		&cli.IntFlag{
-			Name:   SeleniumHubPort,
+			Name:   SeleniumHubPortFlag,
 			EnvVar: "SELENIUM_HUB_PORT",
 			Value:  4444,
 		},
 		&cli.StringFlag{
-			Name:   SeleniumHubHost,
+			Name:   SeleniumHubHostFlag,
 			EnvVar: "SELENIUM_HUB_HOST",
 			Value:  "selenium-hub",
 		},
