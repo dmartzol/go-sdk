@@ -19,7 +19,6 @@ var (
 	DatabasePasswordFlag = "databasePassword"
 
 	// scraper flags
-	LocalScrapeFlag     = "localScrape"
 	SeleniumHubPortFlag = "seleniumHubPort"
 	SeleniumHubHostFlag = "seleniumHubHost"
 
@@ -78,10 +77,6 @@ var (
 	}
 
 	ScraperFlags = []cli.Flag{
-		&cli.BoolTFlag{
-			Name:   LocalScrapeFlag,
-			EnvVar: "LOCAL_SCRAPE",
-		},
 		&cli.IntFlag{
 			Name:   SeleniumHubPortFlag,
 			EnvVar: "SELENIUM_HUB_PORT",
