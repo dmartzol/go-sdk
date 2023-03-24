@@ -25,6 +25,10 @@ import (
 	"github.com/urfave/cli"
 )
 
+const (
+	appName = "backend"
+)
+
 func main() {
 	app := &cli.App{
 		Name:   appName,
