@@ -36,7 +36,7 @@ var (
 	}
 
 	LoggerFlags = []cli.Flag{
-		&cli.BoolTFlag{
+		&cli.BoolFlag{
 			Name:   RawRequestsLoggingFlag,
 			Usage:  "Log incoming raw http requests",
 			EnvVar: "LOG_RAW_REQUESTS",
