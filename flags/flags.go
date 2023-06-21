@@ -22,6 +22,11 @@ var (
 	SeleniumHubPortFlag = "seleniumHubPort"
 	SeleniumHubHostFlag = "seleniumHubHost"
 
+	// tracing flags
+	TracingEnabledFlag    = "tracingEnabled"
+	OtelCollectorHostFlag = "tracingHost"
+	OtelCollectorPortFlag = "tracingPort"
+
 	ServerFlags = []cli.Flag{
 		&cli.StringFlag{
 			Name:   HostnameFlagName,
@@ -86,6 +91,23 @@ var (
 			Name:   SeleniumHubHostFlag,
 			EnvVar: "SELENIUM_HUB_HOST",
 			Value:  "selenium-hub",
+		},
+	}
+
+	TracingFlags = []cli.Flag{
+		&cli.BoolFlag{
+			Name:   TracingEnabledFlag,
+			EnvVar: "TRACING_ENABLED",
+		},
+		&cli.StringFlag{
+			Name:   OtelCollectorHostFlag,
+			EnvVar: "OTEL_COLLECTOR_HOST",
+			Value:  "localhost",
+		},
+		&cli.StringFlag{
+			Name:   OtelCollectorPortFlag,
+			EnvVar: "OTEL_COLLECTOR_PORT",
+			Value:  "4317",
 		},
 	}
 )
