@@ -102,7 +102,7 @@ var (
 		&cli.StringFlag{
 			Name:   OtelCollectorHostFlag,
 			EnvVar: "OTEL_COLLECTOR_HOST",
-			Value:  "localhost",
+			Value:  "otel",
 		},
 		&cli.StringFlag{
 			Name:   OtelCollectorPortFlag,
