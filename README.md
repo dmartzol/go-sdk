@@ -64,8 +64,8 @@ func newBackendServiceRun(c *cli.Context) error {
 
 	// Initializes a new logger using provided configuration and options.
 	loggerOpts := []logger.Option{
-		logger.WithColor(),
-		logger.WithEncoding(c.String(flags.LogsFormatFlag)),
+		logger.WithLevel(logger.Level(c.String(flags.LogsLevelFlag))),
+		logger.WithEncoding(logger.Encoding(c.String(flags.LogsFormatFlag))),
 	}
 	sdkLogger := logger.NewWithOptions(loggerOpts...)
 
@@ -79,7 +79,7 @@ func newBackendServiceRun(c *cli.Context) error {
 		Handler: restAPI,
 	}
 
-	restAPI.Logger.Infof("listening and serving on %s", address)
+	restAPI.Logger.Info("starting server", "address", address)
 	return server.ListenAndServe()
 }
 ```

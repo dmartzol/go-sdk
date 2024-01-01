@@ -9,6 +9,7 @@ var (
 
 	// Logger flags
 	LogsFormatFlag         = "logsFormat"
+	LogsLevelFlag          = "logsLevel"
 	RawRequestsLoggingFlag = "logRawRequests"
 
 	// Database flags
@@ -49,7 +50,12 @@ var (
 		&cli.StringFlag{
 			Name:   LogsFormatFlag,
 			EnvVar: "LOGS_FORMAT",
-			Value:  "console",
+			Value:  "json",
+		},
+		&cli.StringFlag{
+			Name:   LogsLevelFlag,
+			EnvVar: "LOGS_LEVEL",
+			Value:  "info",
 		},
 	}
 
