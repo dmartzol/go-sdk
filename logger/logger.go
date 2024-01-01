@@ -1,54 +1,29 @@
 package logger
 
 import (
-	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
+	"log/slog"
+	"os"
+
+	"github.com/lmittmann/tint"
 )
 
-var global *zap.SugaredLogger
+var global *slog.Logger
 
 func init() {
-	cfg := zap.Config{
-		Level:       zap.NewAtomicLevelAt(zap.InfoLevel),
-		Development: false,
-		Sampling: &zap.SamplingConfig{
-			Initial:    100,
-			Thereafter: 100,
-		},
-		Encoding: "json",
-		EncoderConfig: zapcore.EncoderConfig{
-			TimeKey:        "ts",
-			LevelKey:       "level",
-			NameKey:        "logger",
-			CallerKey:      "caller",
-			FunctionKey:    zapcore.OmitKey,
-			MessageKey:     "msg",
-			StacktraceKey:  "stacktrace",
-			LineEnding:     zapcore.DefaultLineEnding,
-			EncodeLevel:    zapcore.LowercaseLevelEncoder,
-			EncodeTime:     zapcore.EpochTimeEncoder,
-			EncodeDuration: zapcore.SecondsDurationEncoder,
-			EncodeCaller:   zapcore.ShortCallerEncoder,
-		},
-		OutputPaths:      []string{"stderr"},
-		ErrorOutputPaths: []string{"stderr"},
-	}
-	global = zap.Must(cfg.Build()).Sugar()
+	global = New()
 }
 
 type Logger interface {
-	Info(args ...interface{})
-	Infof(format string, args ...interface{})
-	Warn(args ...interface{})
-	Warnf(format string, args ...interface{})
-	Error(args ...interface{})
-	Errorf(format string, args ...interface{})
+	Debug(msg string, args ...any)
+	Info(msg string, args ...any)
+	Warn(msg string, args ...any)
+	Error(msg string, args ...any)
 }
 
-func NewWithOptions(opts ...Option) *zap.SugaredLogger {
+func NewWithOptions(opts ...Option) *slog.Logger {
+	// default options
 	options := &Options{
-		encoding:       "json",
-		levelEncoder:   zapcore.LowercaseLevelEncoder,
+		encoding:       EncodingJSON,
 		samplingConfig: nil,
 	}
 
@@ -56,32 +31,26 @@ func NewWithOptions(opts ...Option) *zap.SugaredLogger {
 		o(options)
 	}
 
-	cfg := zap.Config{
-		Level:       zap.NewAtomicLevelAt(zap.InfoLevel),
-		Development: false,
-		Sampling:    options.samplingConfig,
-		Encoding:    options.encoding,
-		EncoderConfig: zapcore.EncoderConfig{
-			TimeKey:        "ts",
-			LevelKey:       "level",
-			NameKey:        "logger",
-			CallerKey:      "caller",
-			FunctionKey:    zapcore.OmitKey,
-			MessageKey:     "msg",
-			StacktraceKey:  "stacktrace",
-			LineEnding:     zapcore.DefaultLineEnding,
-			EncodeLevel:    options.levelEncoder,
-			EncodeTime:     zapcore.ISO8601TimeEncoder,
-			EncodeDuration: zapcore.SecondsDurationEncoder,
-			EncodeCaller:   zapcore.ShortCallerEncoder,
-		},
-		OutputPaths:      []string{"stderr"},
-		ErrorOutputPaths: []string{"stderr"},
+	handlerOptions := &slog.HandlerOptions{
+		Level: options.level.toSlog(),
 	}
 
-	return zap.Must(cfg.Build()).Sugar()
+	var logger *slog.Logger
+	switch options.encoding {
+	case EncodingJSON:
+		logger = slog.New(slog.NewJSONHandler(os.Stdout, handlerOptions))
+	case EncodingConsole:
+		tintOptions := &tint.Options{
+			Level: options.level.toSlog(),
+		}
+		logger = slog.New(tint.NewHandler(os.Stdout, tintOptions))
+	default:
+		logger = slog.New(slog.NewJSONHandler(os.Stdout, handlerOptions))
+	}
+
+	return logger
 }
 
-func New() *zap.SugaredLogger {
+func New() *slog.Logger {
 	return NewWithOptions()
 }

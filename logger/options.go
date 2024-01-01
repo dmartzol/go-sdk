@@ -2,38 +2,31 @@ package logger
 
 import (
 	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
 )
 
 type Options struct {
-	encoding       string
-	levelEncoder   zapcore.LevelEncoder
+	appName        string
+	encoding       Encoding
 	samplingConfig *zap.SamplingConfig
+	level          Level
 }
 
 type Option func(o *Options)
 
-func WithEncoding(encoding string) Option {
-	if encoding != "console" && encoding != "json" {
-		global.Fatalf("invalid log format '%s': must be 'console' or 'json'", encoding)
-	}
-
+func WithEncoding(encoding Encoding) Option {
 	return func(o *Options) {
 		o.encoding = encoding
 	}
 }
 
-func WithColor() Option {
+func WithLevel(level Level) Option {
 	return func(o *Options) {
-		o.levelEncoder = zapcore.LowercaseColorLevelEncoder
+		o.level = level
 	}
 }
 
-func WithSampling(initial, thereafter int) Option {
+func WithAppName(name string) Option {
 	return func(o *Options) {
-		o.samplingConfig = &zap.SamplingConfig{
-			Initial:    initial,
-			Thereafter: thereafter,
-		}
+		o.appName = name
 	}
 }
